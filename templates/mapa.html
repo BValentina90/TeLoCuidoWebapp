@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}TLC Mapa{% endblock %}
+{% block links %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.slim.min.js">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js">
+<script src='https://api.mapbox.com/mapbox-gl-js/v1.8.1/mapbox-gl.js'></script>
+<link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/v1.8.1/mapbox-gl.css">
+<link rel="stylesheet" href="{% static 'css/mapa.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="view intro-1 hm-black-strong" >
+    <div class="full-bg-img flex-center">
+        <div class="" id="map" style="color: black;"></div>
+    </div>
+    </section>
+
+
+
+
+
+{% endblock %}
+
+
+
+{% block script %}
+<script>
+
+{% for cuidacoches in coordenadas %}
+    var lat{{ cuidacoches.ci }} = "{{ cuidacoches.latitud }}".toString().replace(",",".");
+    var lon{{ cuidacoches.ci }} = "{{ cuidacoches.longitud }}".toString().replace(",",".");
+{% endfor %}
+
+  mapboxgl.accessToken = 'pk.eyJ1IjoicHJlb3llY3Rvd29vdyIsImEiOiJjazdvOTN5cGkwMWN1M2xtdmJ1MGRvd2s3In0.UrORy2QZRA_Gu5g8TGszAA';
+  const map = new mapboxgl.Map({
+      container: 'map',
+      style: 'mapbox://style/mapbox/streets-v11',
+      center: [-56.18697666757, -34.90508515797],
+      zoom: 16
+  });
+  map.addControl(new mapboxgl.NavigationControl());
+  map.addControl(new mapboxgl.FullscreenControl());
+  map.addControl(new mapboxgl.GeolocateControl({
+    positionOptions: {
+        enableHighAccuracy: true
+    },
+    trackUserLocation: true
+}));
+
+
+{% for cuidacoches in coordenadas %}
+  const m{{ cuidacoches.ci }} = new mapboxgl.Marker()
+      .setLngLat([lon{{ cuidacoches.ci }}, lat{{ cuidacoches.ci }}])
+      .setPopup(
+            new mapboxgl.Popup({ offset: 25 }) // add popups
+              .setHTML(
+                '<h5>{{cuidacoches.nombre_trabajo}} </h5>'+
+                  '<p>{{cuidacoches.nombre}} {{cuidacoches.apellido}}</p>' +
+                  '<p>{% if cuidacoches.promedio_calificacion > 4.5 %}   ★★★★★  </p>' +
+                  '<p> {% elif cuidacoches.promedio_calificacion > 3.5%} ★★★★ </p>' +
+                    '<p> {% elif cuidacoches.promedio_calificacion > 2.5%} ★★★ </p>' +
+                    '<p> {% elif cuidacoches.promedio_calificacion > 1.5%} ★★ </p>' +
+                    '<p> {% elif cuidacoches.promedio_calificacion > 0 %} ★ </p>' +
+                    '<p>{% else %} sin calificacion</p>' +
+                    '<p>{% endif %}</p>' +
+                      'Horario: ' +
+                  ' de {{cuidacoches.horario_inicio}}' +
+                  ' a {{ cuidacoches.horario_fin }}</p>' +
+                  '<p> Cantidad de lugares libres: {{cuidacoches.lugares_disponibles}} </p>' +
+                  '<p>{{cuidacoches.direccion}} </p><br>'  +
+                   '<p>¿Desea elegir este lugar?</p>'+
+        '<form name = "nombre" method = "post">'+ 
+            '{% csrf_token %}'+
+            '<input type = "text" id="id_nombre" name="nombre" Value={{ cuidacoches.nombre }} style="display:none !important"/>'+
+            '<input type = "text" id="id_apellido" name="apellido" Value={{ cuidacoches.apellido }} style="display:none">'+
+            '<input type = "text" id="id_nombre_lugar_trabajo" name="nombre_lugar_trabajo" Value={{ cuidacoches.nombre_trabajo }} style="display:none"/>'+
+            '<input type = "text" id="id_horario_inicio" name="horario_inicio" Value={{ cuidacoches.horario_inicio }} style="display:none"/>'+
+            '<input type = "text" id="id_horario_fin" name="horario_fin" Value={{ cuidacoches.horario_fin }} style="display:none"/>'+
+            '<input type = "text" id="id_num_registro" name="num_registro" Value={{ cuidacoches.num_registro }} style="display:none"/>'+
+            '<input type = "submit" value="SI" />'
+              )
+          )
+      .addTo(map);
+{% endfor %}
+
+
+    </script>
+{% endblock %}

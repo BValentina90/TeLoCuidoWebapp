@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}TLC Inicio{% endblock %}
+
+{% block content %}
+<section class="view intro-1 hm-black-strong">
+    <div class="container">
+        <div style="background-color: rgba(255, 255, 255, 0.9); color: rgb(0, 19, 104); margin-top: 100px; overflow: scroll !important; height: 550px;" >
+            <div style="margin: 20px;">
+                <ul style="list-style:none !important">
+                <li>
+                    <h2>{{mensaje}}</h2> 
+                </li>
+                <li><br></li>
+                <li>
+
+                
+                <form method="POST" >
+                    {% csrf_token %}
+                    {{ form.as_p }}
+    <button class="btn btn-primary" type="submit">Guardar</button>
+</form>
+</li>
+<li><br></li><li><br></li><li><br></li>
+</ul>
+            </div>
+            </div>
+    </div>
+</section>
+    
+{% endblock %}

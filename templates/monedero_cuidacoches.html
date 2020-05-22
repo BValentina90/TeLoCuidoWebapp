@@ -1,0 +1,254 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en" class="full-height">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <title>Registro</title>
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/mdb.min.css' %}" rel="stylesheet">
+
+    
+    <style>
+
+        .flex-center {
+            color: #fff;
+        }
+        .intro-1 {
+            background: url("https://aldianews.com/sites/default/files/articles/montevideo_grande.jpg")no-repeat center center;
+            background-size: cover;
+        }
+        .navbar .btn-group .dropdown-menu a:hover {
+            color: #000 !important;
+        }
+
+        .navbar .btn-group .dropdown-menu a:active {
+            color: #fff !important;
+        }
+
+        .full-bg-img {
+            background-color: rgba(129, 215, 255, 0.5) !important; 
+        }
+
+        .jumbotron {
+            background-color: rgb(39, 170, 225);
+            }
+
+        body {
+                margin: 0;
+                padding: 0;
+            }
+        #map {
+                position: relative;
+                top: 0;
+                bottom: 0;
+                width: 100%;
+                height: 100%;
+                margin-top: 150px;
+                margin-right: 6px;
+                margin-left: 10px;
+            }
+        .marker {
+                background-image: url('mapbox-icon.png');
+                background-size: cover;
+                width: 50px;
+                height: 50px;
+                border-radius: 50%;
+                cursor: pointer;
+            }
+        .mapboxgl-popup {
+                max-width: 200px;
+            }
+        .mapboxgl-popup-content {
+                text-align: center;
+                font-family: 'Open Sans', sans-serif;
+            }
+        .star-rating {
+                direction: rtl;
+                display: inline-block;
+                padding: 20px
+            }
+
+            .star-rating input[type=radio] {
+                display: none
+            }
+
+            .star-rating label {
+                color: rgb(133, 142, 192);
+                font-size: 50px;
+                padding: 0;
+                cursor: pointer;
+            /*    -webkit-transition: all .3s ease-in-out;
+                transition: all .3s ease-in-out  */
+            }
+
+            .star-rating label:hover,
+            .star-rating label:hover ~ label,
+            .star-rating input[type=radio]:checked ~ label {
+                color: #ffbf00
+            }
+
+
+
+    </style>
+
+</head>
+
+<body>
+
+    <header>
+
+        <!--Navbar-->
+        <nav class="navbar navbar-expand-lg navbar-dark elegant-color-dark fixed-top" style="background-color: #00639c !important;">
+            <div class="container">
+                <a class="navbar-brand" href="#">TeLoCuido Parking</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="{% url 'portada' %}">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'quienes_somos' %}">Quienes somos</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'como_funciona' %}">Cómo funciona</a>
+                        </li>
+                        {% if tipo == 'cuidacoches'%}
+                        <li class="nav-item btn-group">
+                            <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Cuidacoches 
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <a class="dropdown-item" href="{% url 'home_cuidacoches' %}">Inicio</a>
+                                <a class="dropdown-item" href="{% url 'monedero_cuidacoches' %}">Perfil</a>
+                            </div>
+                        </li>
+                        {% else %}
+                        {% endif %}
+                        <li class="nav-item float-right">
+                            <a class="nav-link" href="{% url 'logout' %}">Salir</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!--/.Navbar-->
+
+   
+
+    <!----------------------------------------contenido---------------------------------------------------------------->                   
+                        <section class="view intro-1 hm-black-strong">
+                                <div class="container">
+                                    <div style="background-color: rgba(255, 255, 255, 0.9); color: rgb(0, 19, 104); margin-top: 100px; overflow: scroll !important; height: 550px;" >
+                                        <div style="margin: 20px;">
+                                            <ul style="list-style:none !important"><li><br></li></ul>
+                                            <ul style="list-style:none !important"><li><br></li></ul>
+                                            
+                                               
+                                                    <div class="card" style="background-color: #ffffff; text-align: center;">
+                                                        <ul style="list-style:none !important"><li><br></li></ul>
+                                                        <h3>Monto monedero:</h3> 
+                                                        <h1><strong>$ {{monedero.monto}} </strong></h1><br>
+                                                        <ul style="list-style:none !important"><li><br></li></ul>
+                                                        <button class="btn btn-primary">Depositar en la cuenta bancaria.</button>
+                                                        <ul style="list-style:none !important"><li><br></li></ul>
+                                                    </div>
+                                                
+                                                    <ul style="list-style:none !important"><li><br></li></ul>
+                                                    <ul style="list-style:none !important"><li><br></li></ul>
+                                                
+                                                    <div>
+                                                        <h4 style="text-align: center;">Movimientos:</h4>
+                                                        <ul style="list-style:none !important"><li><br></li></ul>
+                                                        {% if relaciones %}
+                                                            {% for relacion in relaciones %}
+                                                                <div class="card">
+                                                                    <p style="margin: 5px; text-align: center;">
+                                                                        Fecha: {{relacion.fecha}} <br>
+                                                                        Calificacion: {{relacion.calificacion}}/5 <br>
+                                                                        Propina: ${{relacion.propina}} <br>
+                                                                        Comentario: {{relacion.comentario}} <br>
+                                                                    </p>
+                                                                </div>
+                                                                <br>
+                                                            {% endfor %}
+                                                        {% else %}
+                                                            <p>
+                                                                No hay movimientos disponibles
+                                                            </p>
+                                                        {% endif %}
+                                                    </div>
+                                                
+                                            
+                                        </div>
+                            
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                        
+
+        </div>
+
+    
+ </header>
+    <!-- Main container-->
+
+
+
+    <!--Footer-->
+    <footer class="page-footer center-on-small-only elegant-color-dark" style="background-color: #00639c !important;">
+
+
+
+        <hr>
+
+
+
+        <div class="footer-copyright">
+            <div class="container-fluid">
+                © 2020 <a href=""> Grupo WOOW </a>
+
+            </div>
+        </div>
+   
+
+    </footer>
+    
+    <!--/.Footer-->
+
+
+    <!-- SCRIPTS -->
+
+    <!-- JQuery -->
+    <script type="text/javascript" src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
+    
+    <!-- Bootstrap dropdown -->
+    <script type="text/javascript" src="{% static 'js/popper.min.js' %}"></script>
+    
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
+    
+    <!-- MDB core JavaScript -->
+    <script type="text/javascript" src="{% static 'js/mdb.min.js' %}"></script>
+
+    <!-- Animations init-->
+    <script>
+        new WOW().init();
+    </script>
+
+
+
+</body>
+
+</html>

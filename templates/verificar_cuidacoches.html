@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}TLC Inicio{% endblock %}
+
+{% block content %}
+<section class="view intro-1 hm-black-strong">
+    <div class="full-bg-img flex-center">
+        <div class="container">
+
+    
+
+    <div style="background-color: rgba(255, 255, 255, 0.8); color: rgb(0, 19, 104);">
+        <h3 style="text-align: center;"> {{mensaje}} </h3>
+        <br>
+        <div style="margin: 20px;">
+            <form  method="POST" >{% csrf_token %}
+                <div class="form-group form-control>
+                    {{ form.as_p }}
+                </div>
+                <button type="submit" class="btn btn-block btn-primary">Validar registro</button>
+            </form>
+        <ul>
+            <li> <br></li>
+
+        </ul>
+        </div>
+
+
+    </div>
+
+    
+</div>
+</div>
+</section>
+
+{% endblock %}

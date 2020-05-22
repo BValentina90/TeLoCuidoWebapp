@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}TLC Inicio{% endblock %}
+
+{% block content %}
+<section class="view intro-1 hm-black-strong">
+    <div class="full-bg-img flex-center">
+        <div class="container">
+            <div style="background-color: rgba(255, 255, 255, 0.8); color: rgb(0, 19, 104);">
+
+<div style="text-align: center;">
+  <ul>
+    <li><br></li>
+    <li>
+      <h5>
+          ¿Como calificas a {{rel.cuidacoches.nombre}} {{rel.cuidacoches.apellido}} 
+          por el servicio brindado?
+      </h5>
+  </li>
+  <li>
+    <h4>{{mensaje}}</h4>
+    
+  </li>
+  <li>
+    <form method="POST" >
+        {% csrf_token %}
+        <label for="calificacion">Calificacion</label> <br>
+        <div class="star-rating">
+            <input id="star-5" type="radio" name="calificacion" value="5"  />
+            <label for="star-5" title="5 stars">
+              <i class="active fa fa-star" aria-hidden="true"></i>
+            </label>
+      
+            <input id="star-4" type="radio" name="calificacion" value="4" />
+            <label for="star-4" title="4 stars">
+              <i class="active fa fa-star" aria-hidden="true"></i>
+            </label>
+      
+            <input id="star-3" type="radio" name="calificacion" value="3"  />
+            <label for="star-3" title="3 stars">
+              <i class="active fa fa-star" aria-hidden="true"></i>
+            </label>
+      
+            <input id="star-2" type="radio" name="calificacion" value="2" />
+            <label for="star-2" title="2 stars">
+              <i class="active fa fa-star" aria-hidden="true"></i>
+            </label>
+      
+            <input id="star-1" type="radio" name="calificacion" value="1" />
+            <label for="star-1" title="1 star">
+              <i class="active fa fa-star" aria-hidden="true"></i>
+            </label>
+            
+          </div> <br>
+        <label for="comentario">Comentario</label> 
+        <textarea name="comentario" id="id_comentario" cols="30" rows="10" style="background-color: rgb(133, 142, 192); color: white;"></textarea>
+        <label for="propina">Propina</label>
+        $<input type="text" name="propina" style="background-color: rgb(133, 142, 192); color: white;"> 
+        </li>
+        <li> <br> </li>
+        <li>
+        <button type="submit">Enviar</button>
+    </form>
+  </li>
+  <li><br></li>
+  </ul>
+</div>
+</div>
+</div>
+</section>
+
+{% endblock %}

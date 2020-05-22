@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}TLC Inicio{% endblock %}
+
+{% block content %}
+<section class="view intro-1 hm-black-strong">
+    <div class="full-bg-img flex-center">
+        <div class="container">
+
+<ul>
+    <div style="background-color: rgba(255, 255, 255, 0.8);">
+        <li>
+
+        <img class="h1-responsive font-bold wow fadeInDown sombra" data-wow-delay="0.2s" src="{% static 'img/IDEA_TLC.png' %}" alt="" height="200px" width="190px" 
+        style="display:block;
+        margin:auto; padding: 10px;">
+        </li>
+        <li>
+        <p class="lead mt-4 mb-5 wow fadeInDown" style="color: rgb(0, 78, 122) ;">Tu servico de cuidacoches</p>
+        </li>
+    
+        <li>
+            <a target="_blank" href="{% url 'login_cuidacoches' %}" class="btn btn-primary btn-block wow fadeInLeft"  data-wow-delay="0.2s" rel="nofollow">Cuidacoches</a> <br>
+            <a target="_blank" href="{% url 'login_conductor' %}" class="btn btn-default btn-block wow fadeInRight" data-wow-delay="0.2s" rel="nofollow">  Usuarios </a>
+          
+        </li>  
+    </div>
+</ul>
+
+</div>
+</div>
+</section>
+{% endblock %}

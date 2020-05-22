@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}TLC Inicio{% endblock %}
+
+{% block content %}
+<section class="view intro-1 hm-black-strong">
+    <div class="container">
+        <div style="background-color: rgba(255, 255, 255, 0.9); color: rgb(0, 19, 104); margin-top: 100px; overflow: scroll !important; height: 550px;" >
+            <div style="margin: 20px;">
+                <ul style="list-style:none !important"><li><br></li></ul>
+                <ul style="list-style:none !important"><li><br></li></ul>
+                
+                   
+                        <div class="card" style="background-color: #ffffff; text-align: center;">
+                            <ul style="list-style:none !important"><li><br></li></ul>
+                            <h3>Monto monedero:</h3> 
+                            <h1><strong>$ {{monedero.monto}} </strong></h1><br>
+                            <ul style="list-style:none !important"><li><br></li></ul>
+                            <button class="btn btn-primary">Recargar desde la cuenta bancaria.</button>
+                            <ul style="list-style:none !important"><li><br></li></ul>
+                        </div>
+                    
+                        <ul style="list-style:none !important"><li><br></li></ul>
+                        <ul style="list-style:none !important"><li><br></li></ul>
+                    
+    <div>
+        <h3 style="text-align: center;">Servicios utilizados.</h3>
+        {% if relaciones %}
+            {% for relacion in relaciones %}
+                <p class="card" style="text-align: center;">
+                    
+                    Fecha: {{relacion.fecha}} <br>
+                    Cuidacoches: {{relacion.cuidacoches.nombre}} {{relacion.cuidacoches.apellido}} <br>
+                    Lugar: {{relacion.cuidacoches.nombre_trabajo}} <br>
+                    Tu calificación: 
+                    {% if relacion.calificacion == 5%}   ★★★★★  
+                    {% elif relacion.calificacion == 4%} ★★★★ 
+                    {% elif relacion.calificacion == 3%} ★★★ 
+                    {% elif relacion.calificacion == 2%} ★★ 
+                    {% elif relacion.calificacion == 1%} ★ 
+                    {% else %} sin calificacion
+                    {% endif %}
+                    
+                    <br>
+                    Tu propina: {% if relacion.propina  %} ${{relacion.propina}} {% else %} $0 {% endif %} <br>
+                     
+                </p>
+                
+            {% endfor %}
+        {% else %}
+            <p>
+                Aún no has usado nuestro servicio de cuidacoches.
+            </p>
+        {% endif %}
+    </div>
+</div>
+</div>
+</div>
+</section>
+
+
+{% endblock %}
